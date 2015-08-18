@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-mapbox",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "Easily add mapbox maps to an Ember CLI project.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,18 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
-  "engines": {
-    "node": ">= 0.10.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bdvholmes/ember-cli-mapbox.git"
   },
-  "author": "",
+  "bugs": {
+    "url": "https://github.com/bdvholmes/ember-cli-mapbox/issues"
+  },
+  "homepage": "https://github.com/bdvholmes/ember-cli-mapbox",
+  "engines": {
+    "node": ">= 0.12.0"
+  },
+  "author": "Ben Holmes",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
@@ -37,7 +44,10 @@
     "ember-try": "0.0.6"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "mapbox",
+    "mapbox.js",
+    "map"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.3",
