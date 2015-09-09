@@ -6,6 +6,7 @@ module.exports = {
 
   included: function included(app) {
     app.import(app.bowerDirectory + '/mapbox.js/mapbox.js');
+    app.import(app.bowerDirectory + '/mapbox.js/mapbox.css');
   },
 
   contentFor: function(type, config) {
