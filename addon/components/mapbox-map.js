@@ -10,6 +10,10 @@ export default Ember.Component.extend({
   setup: Ember.on('didInsertElement', function() {
     var map = L.mapbox.map(this.get('divId'), this.get('mapId'));
 
+    if (this.get('center') && this.get('zoom')) {
+      map.setView(this.get('center'), this.get('zoom'));
+    }
+
     this.set('map', map);
   }),
 });

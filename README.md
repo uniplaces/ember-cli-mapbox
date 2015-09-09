@@ -1,6 +1,6 @@
 # Ember-cli-mapbox
 
-Provides an easy way of including Mapbox.js in Ember Cli projects.
+Provides a template driven interface for Mapbox.js in Ember Cli projects.
 
 ```
 ember install ember-cli-mapbox
@@ -30,16 +30,57 @@ module.exports = function(environment) {
 The addon includes a component for constructing a mapbox map:
 
 ```hbs
-{{mapbox-map mapId='ember-cli-mapbox.7c3914f2'}}
+{{mapbox-map mapId='ember-cli-mapbox.7c3914f2' divId='mega-map'}}
 ```
 
-Which will generate a `<div id="map">`, and initialise the map.
+Which will generate a `<div id="mega-map">`, and initialise the map with the
+corresponding mapId form mapbox.
 
-You can specify the id of the target div through `targetDivId`:
+If `divId` is not specified it defaults to 'map'.
+
+You can specify the zoom level and center of the map as attributes
 
 ```hbs
-{{mapbox-map mapId='ember-cli-mapbox.7c3914f2'
-             targetDivID='mega-map'}}
+{{mapbox-map
+  mapId=model.sfMapId
+  center=(mapbox-coords 37.768 -122.381)
+  zoom=13}}
+```
+
+### mapbox-marker
+
+When used as a block `mapbox-map` will yield an instance of the map. You can use
+this to add markers to the map through the `mapbox-marker` component in your
+templates:
+
+```
+{{#mapbox-map mapId='ember-cli-mapbox.7c3914f2' as |map|}}
+  {{#each positions as |position|}}
+    {{mapbox-marker map=map coordinates=position.coordinates}}
+  {{/each}}
+{{/mapbox-map}}
+```
+
+You can also specify the `size` and `color` of the marker with those attributes.
+
+## Helpers
+
+### mapbox-coords
+
+A helper for setting up a coordinate pair from a latitude and a longitude e.g.
+
+```hbs
+{{mapbox-map
+  mapId=model.sfMapId
+  center=(mapbox-coords 37.768 -122.381)
+  zoom=13
+  as |map|}}
+```
+
+or
+
+```hbs
+{{mapbox-marker map=map coordinates=(mapbox-coords 23.333, 45.422)}}
 ```
 
 # Collaborating
