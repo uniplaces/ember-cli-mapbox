@@ -1,5 +1,5 @@
-export function initialize(container/*, application */) {
-
+export function initialize(instance) {
+  var container = instance.container();
   var config = container.lookupFactory('config:environment');
 
   if (!config.mapbox || !config.mapbox.accessToken) {
