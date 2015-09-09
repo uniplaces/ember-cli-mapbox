@@ -21,23 +21,4 @@ module.exports = {
 
     return mapboxTree;
   },
-
-  contentFor: function(type, config) {
-    var content = [];
-
-    if (type === 'body-footer') {
-      if (!config.mapbox || !config.mapbox.accessToken) {
-        console.error('Please specify your mapbox.accessToken in your config.');
-        return content;
-      }
-
-      content = [
-        '<script>',
-        'L.mapbox.accessToken = "' + config.mapbox.accessToken + '";',
-        '</script>',
-      ];
-    }
-
-    return content;
-  },
 };
