@@ -8,6 +8,8 @@ export default Ember.Component.extend({
   mapId: null,
 
   setup: Ember.on('didInsertElement', function() {
-    L.mapbox.map(this.get('divId'), this.get('mapId'));
+    var map = L.mapbox.map(this.get('divId'), this.get('mapId'));
+
+    this.set('map', map);
   }),
 });
