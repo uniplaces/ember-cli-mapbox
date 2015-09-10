@@ -61,7 +61,11 @@ templates:
 {{/mapbox-map}}
 ```
 
-You can also specify the `size` and `color` of the marker with those attributes.
+You can also specify the `size`, `color` and `sybol` of the marker with those
+attributes and trigger an `onclick` event.
+
+Popup titles can be set with `popup-title` and can be opened by setting the
+`is-open` property to true.
 
 ## Helpers
 

@@ -4,6 +4,8 @@ import layout from '../templates/components/mapbox-marker';
 export default Ember.Component.extend({
   layout: layout,
   symbol: '',
+  color: '#444444',
+  marker: null,
 
   setup: Ember.on('didInsertElement', function() {
     var marker = L.marker(this.get('coordinates'), {
@@ -16,12 +18,16 @@ export default Ember.Component.extend({
     marker.bindPopup(this.get('popup-title'));
     marker.addTo(this.get('map'));
 
-    marker.on('click', function() {
-      this.get('map').setView(marker.getLatLng(), 15);
+    marker.on('click', () => {
+      this.sendAction('onclick');
     });
 
-    marker.on('popupopen', function(event) {
-      event.popup.setContent(this.get('popup-title'));
-    });
+    this.set('marker', marker);
+  }),
+
+  popup: Ember.on('didRender', function() {
+    if (this.get('is-open')) {
+      this.get('marker').openPopup();
+    }
   }),
 });
