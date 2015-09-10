@@ -3,6 +3,7 @@ import layout from '../templates/components/mapbox-marker';
 
 export default Ember.Component.extend({
   layout: layout,
+  symbol: '',
 
   setup: Ember.on('didInsertElement', function() {
     var marker = L.marker(this.get('coordinates'), {
