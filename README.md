@@ -1,26 +1,19 @@
 # Ember-cli-mapbox
 
-Provides a template driven interface for Mapbox.js in Ember Cli projects.
+Template driven Mapbox.js maps in Ember CLI.
+
+## Installation
 
 ```
 ember install ember-cli-mapbox
 ```
 
-## Configuration
-
-Add your access token to your Ember config:
+Add your access token to `config/environment.js`:
 
 ```js
-module.exports = function(environment) {
-  var ENV = {
-    ...
-
-    mapbox: {
-      accessToken: 'yourAccessToken',
-    },
-
-    ...
-  };
+mapbox: {
+  accessToken: 'yourAccessToken',
+},
 ```
 
 ## Components
