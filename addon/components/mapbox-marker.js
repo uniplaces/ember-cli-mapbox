@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   marker: null,
 
   setup: Ember.on('didInsertElement', function() {
-    var marker = L.marker(this.get('coordinates'), {
+    let marker = L.marker(this.get('coordinates'), {
       icon: L.mapbox.marker.icon({
         'marker-color': this.get('color'),
         'marker-size': this.get('size'),
@@ -23,6 +23,14 @@ export default Ember.Component.extend({
     });
 
     this.set('marker', marker);
+  }),
+
+  teardown: Ember.on('willDestroyElement', function() {
+    let marker = this.get('marker');
+    let map = this.get('map');
+    if (map && marker) {
+      map.removeLayer(marker);
+    }
   }),
 
   popup: Ember.on('didRender', function() {
