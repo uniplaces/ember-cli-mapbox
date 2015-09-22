@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   marker: null,
 
   setup: Ember.on('didInsertElement', function() {
-    var marker = L.marker(this.get('coordinates'), {
+    let marker = L.marker(this.get('coordinates'), {
       icon: L.mapbox.marker.icon({
         'marker-color': this.get('color'),
         'marker-size': this.get('size'),

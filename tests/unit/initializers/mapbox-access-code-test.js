@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { initialize } from '../../../initializers/mapbox-access-code';
 import { module, test } from 'qunit';
 
-var registry, application;
+let registry, application;
 
 module('Unit | Initializer | mapbox access code', {
   beforeEach: function() {
