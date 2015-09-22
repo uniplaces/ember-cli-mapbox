@@ -25,6 +25,14 @@ export default Ember.Component.extend({
     this.set('marker', marker);
   }),
 
+  teardown: Ember.on('willDestroyElement', function() {
+    let marker = this.get('marker');
+    let map = this.get('map');
+    if (map && marker) {
+      map.removeLayer(marker);
+    }
+  }),
+
   popup: Ember.on('didRender', function() {
     if (this.get('is-open')) {
       this.get('marker').openPopup();
