@@ -7,23 +7,24 @@ export default Ember.Component.extend({
   symbol: '',
   color: '#444444',
   marker: null,
-  isLoaded: Ember.computed('map', function() {
-    var map = this.get('map');
-    if (typeof(map) != 'undefined') {
-      let marker = this.get('marker');
+  isLoaded: Ember.computed('map', 'marker', function() {
+    let map = this.get('map');
+    let marker = this.get('marker');
+    if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
       marker.addTo(map);
       return true;
     } else {
       return false;
     }
   }),
+
   setup: Ember.on('didInsertElement', function() {
     let marker = L.marker(this.get('coordinates'), {
       icon: L.mapbox.marker.icon({
         'marker-color': this.get('color'),
         'marker-size': this.get('size'),
-        'marker-symbol': this.get('symbol')
-      })
+        'marker-symbol': this.get('symbol'),
+      }),
     });
     marker.bindPopup(this.get('popup-title'));
 
