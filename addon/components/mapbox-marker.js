@@ -2,10 +2,21 @@ import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
 
 export default Ember.Component.extend({
+  classNameBindings: ['isLoaded'],
   layout: layout,
   symbol: '',
   color: '#444444',
   marker: null,
+  isLoaded: Ember.computed('map', 'marker', function() {
+    let map = this.get('map');
+    let marker = this.get('marker');
+    if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
+      marker.addTo(map);
+      return true;
+    } else {
+      return false;
+    }
+  }),
 
   setup: Ember.on('didInsertElement', function() {
     let marker = L.marker(this.get('coordinates'), {
@@ -16,7 +27,6 @@ export default Ember.Component.extend({
       }),
     });
     marker.bindPopup(this.get('popup-title'));
-    marker.addTo(this.get('map'));
 
     marker.on('click', () => {
       this.sendAction('onclick');
