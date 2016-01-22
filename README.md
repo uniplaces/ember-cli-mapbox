@@ -60,6 +60,13 @@ attributes and trigger an `onclick` event.
 Popup titles can be set with `popup-title` and can be opened by setting the
 `is-open` property to true.
 
+To make the marker recenter the map when it is added, you can sepecify `recenter`
+as a property oft he marker:
+
+```hbs
+{{mapbox-marker map=map coordinates=position.coordinates recenter=true}}
+```
+
 ## Helpers
 
 ### mapbox-coords
