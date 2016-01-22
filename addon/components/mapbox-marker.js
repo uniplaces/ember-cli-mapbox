@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   symbol: '',
   color: '#444444',
   marker: null,
+  
   isLoaded: Ember.computed('map', 'marker', function() {
     let map = this.get('map');
     let marker = this.get('marker');
@@ -48,6 +49,9 @@ export default Ember.Component.extend({
   popup: Ember.on('didRender', function() {
     if (this.get('is-open')) {
       this.get('marker').openPopup();
+      if (this.get('recenter')) {
+        this.get('map').setView(this.get('coordinates'));
+      }
     }
   }),
 });
