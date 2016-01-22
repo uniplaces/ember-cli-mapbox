@@ -46,7 +46,7 @@ When used as a block `mapbox-map` will yield an instance of the map. You can use
 this to add markers to the map through the `mapbox-marker` component in your
 templates:
 
-```
+```hbs
 {{#mapbox-map mapId='ember-cli-mapbox.7c3914f2' as |map|}}
   {{#each positions as |position|}}
     {{mapbox-marker map=map coordinates=position.coordinates}}
