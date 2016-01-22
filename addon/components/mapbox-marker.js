@@ -18,23 +18,21 @@ export default Ember.Component.extend({
     }
   }),
 
-  setup: Ember.on('didInsertElement', function() {
-    Ember.run.scheduleOnce('afterRender', this, function () {
-      let marker = L.marker(this.get('coordinates'), {
-        icon: L.mapbox.marker.icon({
-          'marker-color': this.get('color'),
-          'marker-size': this.get('size'),
-          'marker-symbol': this.get('symbol'),
-        }),
-      });
-      marker.bindPopup(this.get('popup-title'));
-
-      marker.on('click', () => {
-        this.sendAction('onclick');
-      });
-
-      this.set('marker', marker);
+  setup: Ember.on('willRender', function() {
+    let marker = L.marker(this.get('coordinates'), {
+      icon: L.mapbox.marker.icon({
+        'marker-color': this.get('color'),
+        'marker-size': this.get('size'),
+        'marker-symbol': this.get('symbol'),
+      }),
     });
+    marker.bindPopup(this.get('popup-title'));
+
+    marker.on('click', () => {
+      this.sendAction('onclick');
+    });
+
+    this.set('marker', marker);
   }),
 
   teardown: Ember.on('willDestroyElement', function() {
