@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   symbol: '',
   color: '#444444',
   marker: null,
-  
+
   isLoaded: Ember.computed('map', 'marker', function() {
     let map = this.get('map');
     let marker = this.get('marker');
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     }
   }),
 
-  setup: Ember.on('willRender', function() {
+  setup: Ember.on('init', function() {
     let marker = L.marker(this.get('coordinates'), {
       icon: L.mapbox.marker.icon({
         'marker-color': this.get('color'),
