@@ -31,12 +31,14 @@ corresponding mapId form mapbox.
 
 If `divId` is not specified it defaults to 'map'.
 
-You can specify the zoom level and center of the map as attributes
+You can specify the zoom level, center of the map, and trigger an `onclick` event as attributes.
+The `onclick` event will return an instance of the event containing the lat,lng, among other properties. 
 
 ```hbs
 {{mapbox-map
   mapId=model.sfMapId
   center=(mapbox-coords 37.768 -122.381)
+  onclick="actionName"
   zoom=13}}
 ```
 
@@ -54,7 +56,7 @@ templates:
 {{/mapbox-map}}
 ```
 
-You can also specify the `size`, `color` and `sybol` of the marker with those
+You can also specify the `size`, `color` and `symbol` of the marker with those
 attributes and trigger an `onclick` event.
 
 Popup titles can be set with `popup-title` and can be opened by setting the

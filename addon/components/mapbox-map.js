@@ -14,6 +14,11 @@ export default Ember.Component.extend({
       if (this.get('center') && this.get('zoom')) {
         map.setView(this.get('center'), this.get('zoom'));
       }
+
+      map.on('click', (e) => {
+        this.sendAction('onclick', e);
+      });
+
       this.set('map', map);
     });
   }),
