@@ -32,7 +32,7 @@ corresponding mapId form mapbox.
 If `divId` is not specified it defaults to 'map'.
 
 You can specify the zoom level, center of the map, and trigger an `onclick` event as attributes.
-The `onclick` event will return an instance of the event containing the lat,lng, among other properties. 
+The `onclick` event will return an instance of the event containing the lat,lng, among other properties.
 
 ```hbs
 {{mapbox-map
@@ -67,6 +67,18 @@ as a property oft he marker:
 
 ```hbs
 {{mapbox-marker map=map coordinates=position.coordinates recenter=true}}
+```
+
+### mapbox-geojson
+
+Similar to `mapbox-marker`, you can use `mapbox-geojson` to add arbitrary polygons and points to your map:
+
+```hbs
+{{#mapbox-map mapId='ember-cli-mapbox.7c3914f2' as |map|}}
+  {{#each areas as |area|}}
+    {{mapbox-geojson map=map json=area.geometry}}
+  {{/each}}
+{{/mapbox-map}}
 ```
 
 ## Helpers

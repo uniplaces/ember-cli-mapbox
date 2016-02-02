@@ -17,8 +17,8 @@ export default Ember.Component.extend({
   }),
 
   setup: Ember.on('init', function() {
-    let geojson = L.geoJson(this.get('geojson'), {
-
+    let geojson = L.geoJson(this.get('json'), {
+      // TODO
     });
 
     geojson.on('click', () => {
