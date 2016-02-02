@@ -81,6 +81,10 @@ Similar to `mapbox-marker`, you can use `mapbox-geojson` to add arbitrary polygo
 {{/mapbox-map}}
 ```
 
+You can specify and trigger an `onclick` event.
+
+Popup titles can be set with `popup-title` and can be manually opened by setting the `is-open` property to true.
+
 ## Helpers
 
 ### mapbox-coords
