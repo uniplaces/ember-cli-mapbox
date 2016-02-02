@@ -8,17 +8,16 @@ export default Ember.Component.extend({
 
   isLoaded: Ember.computed('map', 'geojson', function() {
     let map = this.get('map');
-    let multipolygon = this.get('geojson');
-    if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
+    let geojson = this.get('geojson');
+    if (!Ember.isEmpty(map) && !Ember.isEmpty(geojson)) {
       geojson.addTo(map);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }),
 
   setup: Ember.on('init', function() {
-    let geojson = L.marker(this.get('geojson'), {
+    let geojson = L.geoJson(this.get('geojson'), {
 
     });
 
