@@ -18,6 +18,18 @@ export default Ember.Component.extend({
       return false;
     }
   }),
+  
+  iconChange: Ember.observer('color', 'size', 'symbol', function() {
+    var map = this.get('map');
+    var marker = this.get('marker');
+    if (typeof(map) != 'undefined' && marker != null) {
+      marker.setIcon(L.mapbox.marker.icon({
+        'marker-color': this.get('color'),
+        'marker-size': this.get('size'),
+        'marker-symbol': this.get('symbol')
+      }));
+    }
+  }),
 
   setup: Ember.on('init', function() {
     let marker = L.marker(this.get('coordinates'), {
@@ -31,6 +43,14 @@ export default Ember.Component.extend({
 
     marker.on('click', () => {
       this.sendAction('onclick');
+    });
+
+    marker.on('popupopen', () => {
+      this.sendAction('onpopupopen');
+    });
+
+    marker.on('popupclose', () => {
+      this.sendAction('onpopupclose');
     });
 
     this.set('marker', marker);
