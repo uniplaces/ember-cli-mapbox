@@ -33,6 +33,14 @@ export default Ember.Component.extend({
       this.sendAction('onclick');
     });
 
+    marker.on('popupopen', () => {
+      this.sendAction('onpopupopen');
+    });
+
+    marker.on('popupclose', () => {
+      this.sendAction('onpopupclose');
+    });
+
     this.set('marker', marker);
   }),
 
