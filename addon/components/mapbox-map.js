@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   mapId: null,
 
   setup: Ember.on('didInsertElement', function() {
-    Ember.run.scheduleOnce('afterRender', this, function () {
+    Ember.run.scheduleOnce('afterRender', this, function() {
       let map = L.mapbox.map(this.get('divId'), this.get('mapId'));
 
       if (this.get('center') && this.get('zoom')) {
@@ -21,5 +21,5 @@ export default Ember.Component.extend({
 
       this.set('map', map);
     });
-  }),
+  })
 });
