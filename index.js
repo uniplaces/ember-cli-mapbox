@@ -16,9 +16,9 @@ module.exports = {
     var mapboxPath = path.join(this.app.bowerDirectory, 'mapbox.js');
     var mapboxTree = new Funnel(this.treeGenerator(mapboxPath), {
       srcDir: '/images',
-      destDir: '/assets/images',
+      destDir: '/assets/images'
     });
 
     return mapboxTree;
-  },
+  }
 };

@@ -1,4 +1,4 @@
-# Ember-cli-mapbox
+# Ember CLI mapbox [![Circle CI](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master.svg?style=svg)](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master)
 
 Template driven Mapbox.js maps in Ember CLI.
 
@@ -124,6 +124,7 @@ The dummy app has some basic mapbox usage.
 
 ## Running Tests
 
+* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 

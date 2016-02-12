@@ -20,7 +20,9 @@ export default Ember.Component.extend({
     let popupTitle = this.get('popup-title');
     let geojson = L.geoJson(this.get('json'), {
       onEachFeature(feature, layer) {
-        if (popupTitle) layer.bindPopup(popupTitle);
+        if (popupTitle) {
+          layer.bindPopup(popupTitle);
+        }
       }
     });
 
@@ -43,5 +45,5 @@ export default Ember.Component.extend({
     if (this.get('is-open')) {
       this.get('geojson').openPopup();
     }
-  }),
+  })
 });
