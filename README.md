@@ -1,4 +1,4 @@
-# Ember-cli-mapbox
+# Ember CLI mapbox [![Circle CI](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master.svg?style=svg)](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master)
 
 Template driven Mapbox.js maps in Ember CLI.
 
