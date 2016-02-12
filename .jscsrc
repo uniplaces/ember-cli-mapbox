@@ -1,3 +1,8 @@
 {
-  "preset": "ember-suave"
+  "preset": "ember-suave",
+  "requireBlocksOnNewline": null,
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requireEnhancedObjectLiterals": null,
+  "requireTemplateStringsForConcatenation": null,
+  "requireObjectDestructuring": null
 }

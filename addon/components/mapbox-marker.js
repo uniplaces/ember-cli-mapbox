@@ -20,8 +20,8 @@ export default Ember.Component.extend({
   }),
 
   iconChange: Ember.observer('color', 'size', 'symbol', function() {
-    var map = this.get('map');
-    var marker = this.get('marker');
+    let map = this.get('map');
+    let marker = this.get('marker');
     if (typeof map !== 'undefined' && marker != null) {
       marker.setIcon(L.mapbox.marker.icon({
         'marker-color': this.get('color'),
