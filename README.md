@@ -69,6 +69,22 @@ as a property oft he marker:
 {{mapbox-marker map=map coordinates=position.coordinates recenter=true}}
 ```
 
+### mapbox-markercluster
+
+You can cluster markers into a markercluster group by yielding a mapbox-markercluster and nesting mapbox-markers inside:
+
+```hbs
+{{#mapbox-map mapId='ember-cli-mapbox.7c3914f2' as |map|}}
+  {{#mapbox-markercluster map=map as |cluster|}}
+    {{#each positions as |position|}}
+      {{mapbox-marker map=map cluster=cluster coordinates=position.coordinates}}
+    {{/each}}
+  {{/mapbox-markercluster}}
+{{/mapbox-map}}
+```
+
+Nested mapbox-markers carry all of the same properties/attributes as regular markers.
+
 ### mapbox-geojson
 
 Similar to `mapbox-marker`, you can use `mapbox-geojson` to add arbitrary polygons and points to your map:
