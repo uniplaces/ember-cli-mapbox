@@ -18,6 +18,7 @@ export default Ember.Component.extend({
 
 
       // Bind Events
+      map.on('click', e => this.sendAction('onclick', e)); // Legacy
       map.on('click', e => this.sendAction('click', e));
       map.on('dblclick', e => this.sendAction('dblclick', e));
       map.on('mousedown', e => this.sendAction('mousedown', e));
