@@ -11,8 +11,13 @@ export default Ember.Component.extend({
   isLoaded: Ember.computed('map', 'marker', function() {
     let map = this.get('map');
     let marker = this.get('marker');
+    let cluster = this.get('cluster');
     if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
-      marker.addTo(map);
+      if (!Ember.isEmpty(cluster)) {
+        cluster.addLayer(marker);
+      } else {
+        marker.addTo(map);
+      }
       return true;
     } else {
       return false;
