@@ -46,16 +46,25 @@ export default Ember.Component.extend({
     });
     marker.bindPopup(this.get('popup-title'));
 
-    marker.on('click', () => {
-      this.sendAction('onclick');
-    });
+    const markerEvents = [
+      'click',
+      'dblclick',
+      'mousedown',
+      'mouseover',
+      'mouseout',
+      'contextmenu',
+      'dragstart',
+      'drag',
+      'dragend',
+      'move',
+      'add',
+      'remove',
+      'popupopen',
+      'popupclose'
+    ];
 
-    marker.on('popupopen', () => {
-      this.sendAction('onpopupopen');
-    });
-
-    marker.on('popupclose', () => {
-      this.sendAction('onpopupclose');
+    markerEvents.forEach((event) => {
+      marker.on(event, (e) => this.sendAction('on' + event, marker, e));
     });
 
     this.set('marker', marker);

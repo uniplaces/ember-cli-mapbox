@@ -68,3 +68,23 @@ test('it registers an event for onpopupopen', function(assert) {
 
   this.render(hbs`{{mapbox-marker onpopupopen='explode'}}`);
 });
+
+test('it registers an event for onremove', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMarker.on = function(e, method) {
+    if (e === 'remove') {
+      method();
+    }
+  };
+
+  L.marker = function() {
+    return mockMarker;
+  };
+
+  this.render(hbs`{{mapbox-marker onremove='explode'}}`);
+});
