@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
-import { MARKER_EVENTS } from '../helpers/events';
+import { MARKER_EVENTS } from '../constants/events';
 
 export default Ember.Component.extend({
   classNameBindings: ['isLoaded'],

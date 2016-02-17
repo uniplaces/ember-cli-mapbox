@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-map';
-import { MAP_EVENTS } from '../helpers/events';
+import { MAP_EVENTS } from '../constants/events';
 
 export default Ember.Component.extend({
   layout: layout,
