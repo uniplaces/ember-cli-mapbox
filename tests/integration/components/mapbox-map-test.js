@@ -85,3 +85,43 @@ test('it registers an event for click (deprecated)', function(assert) {
 
   this.render(hbs`{{mapbox-map click='explode'}}`);
 });
+
+test('it registers an event for onclick', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMap.on = function(e, method) {
+    if (e === 'click') {
+      method();
+    }
+  };
+
+  L.mapbox.map = function() {
+    return mockMap;
+  };
+
+  this.render(hbs`{{mapbox-map onclick='explode'}}`);
+});
+
+test('it registers an event for onlocationerror', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMap.on = function(e, method) {
+    if (e === 'locationerror') {
+      method();
+    }
+  };
+
+  L.mapbox.map = function() {
+    return mockMap;
+  };
+
+  this.render(hbs`{{mapbox-map onlocationerror='explode'}}`);
+});
