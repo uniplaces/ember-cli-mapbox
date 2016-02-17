@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-map';
+import { MAP_EVENTS } from '../constants/events';
 
 export default Ember.Component.extend({
   layout: layout,
@@ -17,12 +18,6 @@ export default Ember.Component.extend({
       }
 
       // Bind Events
-      const MAP_EVENTS = ['click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout', 'mousemove',
-                          'contextmenu', 'focus', 'blur', 'load', 'unload', 'viewreset', 'movestart', 'move',
-                          'moveend', 'dragstart', 'drag', 'dragend', 'zoomstart', 'zoomend', 'zoomlevelschange',
-                          'resize', 'autopanstart', 'layeradd', 'layerremove', 'baselayerchange', 'overlayadd',
-                          'overlayremove', 'locationfound', 'locationerror', 'popupopen', 'popupclose'];
-
       MAP_EVENTS.forEach((event) => {
         map.on(event, (e) => this.sendAction('on' + event, map, e));
       });
