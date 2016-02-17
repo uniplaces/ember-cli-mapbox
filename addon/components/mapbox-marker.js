@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
+import { MARKER_EVENTS } from '../helpers/events';
 
 export default Ember.Component.extend({
   classNameBindings: ['isLoaded'],
@@ -46,24 +47,7 @@ export default Ember.Component.extend({
     });
     marker.bindPopup(this.get('popup-title'));
 
-    const markerEvents = [
-      'click',
-      'dblclick',
-      'mousedown',
-      'mouseover',
-      'mouseout',
-      'contextmenu',
-      'dragstart',
-      'drag',
-      'dragend',
-      'move',
-      'add',
-      'remove',
-      'popupopen',
-      'popupclose'
-    ];
-
-    markerEvents.forEach((event) => {
+    MARKER_EVENTS.forEach((event) => {
       marker.on(event, (e) => this.sendAction('on' + event, marker, e));
     });
 
