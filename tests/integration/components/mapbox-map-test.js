@@ -65,3 +65,23 @@ test('it calls setView with zoom if it is defined', function(assert) {
 
   this.render(hbs`{{mapbox-map center='baba' zoom='gaga'}}`);
 });
+
+test('it registers an event for click (deprecated)', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMap.on = function(e, method) {
+    if (e === 'click') {
+      method();
+    }
+  };
+
+  L.mapbox.map = function() {
+    return mockMap;
+  };
+
+  this.render(hbs`{{mapbox-map click='explode'}}`);
+});

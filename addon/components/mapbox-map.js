@@ -27,6 +27,15 @@ export default Ember.Component.extend({
         map.on(event, (e) => this.sendAction('on' + event, map, e));
       });
 
+      map.on('click', (e) => {
+        Ember.deprecate('The "click" action in mapbox-map is deprecated, please use "onclick" instead.', false, {
+          id: 'mapbox-click-action',
+          url: 'https://github.com/binhums/ember-cli-mapbox',
+          until: '1 April 2016'
+        });
+        this.sendAction('click', map, e);
+      });
+
       // Set
       this.set('map', map);
     });
