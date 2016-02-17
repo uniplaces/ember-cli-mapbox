@@ -28,3 +28,43 @@ test('it sets the marker color size and symbol', function(assert) {
 
   this.render(hbs`{{mapbox-marker color='red' size='large' symbol='circle'}}`);
 });
+
+test('it registers an event for onclick', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMarker.on = function(e, method) {
+    if (e === 'click') {
+      method();
+    }
+  };
+
+  L.marker = function() {
+    return mockMarker;
+  };
+
+  this.render(hbs`{{mapbox-marker onclick='explode'}}`);
+});
+
+test('it registers an event for onpopupopen', function(assert) {
+  assert.expect(1);
+
+  this.on('explode', function() {
+    assert.ok(true);
+  });
+
+  mockMarker.on = function(e, method) {
+    if (e === 'popupopen') {
+      method();
+    }
+  };
+
+  L.marker = function() {
+    return mockMarker;
+  };
+
+  this.render(hbs`{{mapbox-marker onpopupopen='explode'}}`);
+});
