@@ -1,9 +1,8 @@
 module.exports = {
   afterInstall: function() {
-    let packages = [
+    return this.addBowerPackagesToProject([
       { name: 'mapbox.js', target: '2.3.0' },
       { name: 'leaflet.markerclusterer', target: '0.4.0' }
-    ];
-    return this.addBowerPackagesToProject(packages);
+    ]);
   },
 };
