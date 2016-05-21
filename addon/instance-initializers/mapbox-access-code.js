@@ -1,12 +1,6 @@
 export function initialize(instance) {
-  let container = this.container;
-  if (!container && instance.container) {
-    container = instance.container();
-  } else {
-    container = instance.__container__;
-  }
-
-  let config = container.lookupFactory('config:environment');
+  const lookupContext = instance.lookup ? instance : instance.container;
+  let config = lookupContext.lookup('config:environment');
 
   if (!config.mapbox || !config.mapbox.accessToken) {
     console.error('Please specify your mapbox.accessToken in your config.');
@@ -19,4 +13,9 @@ export function initialize(instance) {
 export default {
   name: 'mapbox-access-code',
   initialize: initialize
+};
+
+export default {
+  name: 'boobs',
+  initialize
 };
