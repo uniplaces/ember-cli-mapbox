@@ -12,15 +12,15 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce('afterRender', this, function() {
       let map = L.mapbox.map(this.get('divId'), this.get('mapId'));
 
-      // Setters
-      if (this.get('center')) {
-        map.setView(this.get('center'), this.get('zoom'));
-      }
-
       // Bind Events
       MAP_EVENTS.forEach((event) => {
         map.on(event, (e) => this.sendAction('on' + event, map, e));
       });
+
+      // Setters
+      if (this.get('center')) {
+        map.setView(this.get('center'), this.get('zoom'));
+      }
 
       if (this.get('click')) {
         Ember.deprecate('The "click" action in mapbox-map is deprecated, please use "onclick" instead.', false, {
