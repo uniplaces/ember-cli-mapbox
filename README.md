@@ -57,7 +57,8 @@ templates:
 ```
 
 You can also specify the `size`, `color` and `symbol` of the marker with those
-attributes and trigger an `onclick`, an `onpopupopen` and an `onpopupclose` event.
+attributes, set the marker to be `draggable` and trigger an `onclick`, an `onpopupopen` and an
+`onpopupclose` event.
 
 Popup titles can be set with `popup-title` and can be opened by setting the
 `is-open` property to true.
