@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-mapbox",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Easily add mapbox maps to an Ember CLI project.",
   "directories": {
     "doc": "doc",
