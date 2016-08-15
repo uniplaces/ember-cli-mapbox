@@ -8,11 +8,13 @@ export default Ember.Component.extend({
   symbol: '',
   color: '#444444',
   marker: null,
+  draggable: false,
 
   isLoaded: Ember.computed('map', 'marker', function() {
     let map = this.get('map');
     let marker = this.get('marker');
     let cluster = this.get('cluster');
+
     if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
       if (!Ember.isEmpty(cluster)) {
         cluster.addLayer(marker);
@@ -43,7 +45,8 @@ export default Ember.Component.extend({
         'marker-color': this.get('color'),
         'marker-size': this.get('size'),
         'marker-symbol': this.get('symbol')
-      })
+      }),
+      draggable: this.get('draggable')
     });
     marker.bindPopup(this.get('popup-title'));
 
