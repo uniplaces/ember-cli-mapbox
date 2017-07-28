@@ -13,9 +13,10 @@ module.exports = {
     app.import(app.bowerDirectory + '/mapbox.js/mapbox.css');
 
     // Leaflet markercluster
-    app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/leaflet.markercluster.js');
+/*  app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/leaflet.markercluster.js');
     app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.css');
     app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.Default.css');
+ */
   },
 
   treeForPublic: function() {
