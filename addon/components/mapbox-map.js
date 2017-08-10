@@ -15,7 +15,11 @@ export default Ember.Component.extend({
   scrollWheelZoom: true,
   doubleClickZoom: true,
   tap: true,
+  position: 'topleft',
+  showZoomControl: true,
   options: {},
+  addControls: true,
+  attributionControl: false,
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, function() {
@@ -24,11 +28,19 @@ export default Ember.Component.extend({
         this.get('mapId'),
         {
           ...this.getProperties('center', 'zoom', 'dragging', 'scrollWheelZoom', 'doubleClickZoom', 'tap'),
+          zoomControl: false,
+          addControls: this.get('addControls'),
+          attributionControl: this.get('attributionControl'),
           ...this.get('options')
         }
       );
 
       L.mapbox.styleLayer(this.get('style')).addTo(map);
+
+      if (this.get('showZoomControl')) {
+        let zoomControl = new L.Control.Zoom({ position: this.get('position') });
+        zoomControl.addTo(map);
+      }
 
       // Bind Events
       MAP_EVENTS.forEach((event) => {
