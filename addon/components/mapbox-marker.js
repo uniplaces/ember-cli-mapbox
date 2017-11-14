@@ -1,3 +1,4 @@
+/* global L */
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
 import { MARKER_EVENTS } from '../constants/events';
