@@ -1,8 +1,8 @@
 /* global L */
 import Ember from 'ember';
-import layout from '../templates/components/mapbox-layer';
+import layout from '../templates/components/mapbox-circle';
 
-const { Component, computed, isEmpty, isPresent } = Ember;
+const { Component, isEmpty, isPresent, observer } = Ember;
 
 export default Component.extend({
   layout,
@@ -13,7 +13,7 @@ export default Component.extend({
   radius: 200,
   options: {},
 
-  isLoaded: computed('map', 'circle', function() {
+  isLoaded: observer('map', function() {
     let { map, circle, cluster } = this.getProperties('map', 'circle', 'cluster');
 
     if (isEmpty(map) || isEmpty(circle)) {
