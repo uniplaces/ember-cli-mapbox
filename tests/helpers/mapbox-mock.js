@@ -39,7 +39,7 @@ const mockControl = {
   }
 };
 
-const mock = {
+const Lmock = {
   mapbox: mockMapbox,
   icon() {},
   marker() {
@@ -51,4 +51,4 @@ const mock = {
   Control: mockControl
 };
 
-export default mock;
+export default Lmock;
