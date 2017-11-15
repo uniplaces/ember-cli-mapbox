@@ -18,11 +18,11 @@ export default Component.extend({
   hasEvents: true,
   isOpen: true,
 
-  createMarkerIcon() {
+  createMarkerIcon(color, size, symbol) {
     return L.mapbox.marker.icon({
-      'marker-color': this.get('color'),
-      'marker-size': this.get('size'),
-      'marker-symbol': this.get('symbol')
+      'marker-color': color,
+      'marker-size': size,
+      'marker-symbol': symbol
     });
   },
 
@@ -43,20 +43,21 @@ export default Component.extend({
   }),
 
   iconChange: observer('color', 'size', 'symbol', function() {
-    let { map, marker } = this.getProperties('map', 'marker');
+    let { map, marker, color, size, symbol } = this.getProperties('map', 'marker', 'color', 'size', 'symbol');
 
     if (typeof map !== 'undefined' && marker != null) {
-      marker.setIcon(this.get('createMarkerIcon')());
+      marker.setIcon(this.get('createMarkerIcon')(color, size, symbol));
     }
   }),
 
   didInsertElement() {
     this._super(...arguments);
 
+    let { color, size, symbol } = this.getProperties('color', 'size', 'symbol');
     let marker = L.marker(
       this.get('coordinates'),
       {
-        icon: this.get('createMarkerIcon')(),
+        icon: this.get('createMarkerIcon')(color, size, symbol),
         draggable: this.get('draggable')
       }
     );

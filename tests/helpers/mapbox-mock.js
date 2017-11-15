@@ -1,3 +1,15 @@
+const mockMapbox = {
+  map() {
+    return mockMap;
+  },
+  styleLayer() {
+    return mockStyleLayer;
+  },
+  marker: {
+    icon() {}
+  }
+};
+
 const mockMap = {
   on() {},
   removeLayer() {}
@@ -11,7 +23,8 @@ const mockMarker = {
   addTo() {},
   setIcon() {},
   bindPopup() {},
-  on() {}
+  on() {},
+  icon() {}
 };
 
 const mockCircle = {
@@ -26,15 +39,8 @@ const mockControl = {
   }
 };
 
-const mockMapBox = {
-  mapbox: {
-    map() {
-      return mockMap;
-    },
-    styleLayer() {
-      return mockStyleLayer;
-    }
-  },
+const mock = {
+  mapbox: mockMapbox,
   icon() {},
   marker() {
     return mockMarker;
@@ -45,4 +51,4 @@ const mockMapBox = {
   Control: mockControl
 };
 
-export default mockMapBox;
+export { mock };
