@@ -1,3 +1,54 @@
-import mockMapbox from '../../tests/helpers/mapbox-mock';
+const mockMapbox = {
+  map() {
+    return mockMap;
+  },
+  styleLayer() {
+    return mockStyleLayer;
+  },
+  marker: {
+    icon() {}
+  }
+};
 
-export { mockMapbox };
+const mockMap = {
+  on() {},
+  removeLayer() {}
+};
+
+const mockStyleLayer = {
+  addTo() {}
+};
+
+const mockMarker = {
+  addTo() {},
+  setIcon() {},
+  bindPopup() {},
+  on() {},
+  icon() {}
+};
+
+const mockCircle = {
+  addTo() {}
+};
+
+const mockControl = {
+  Zoom() {
+    return {
+      addTo() {}
+    };
+  }
+};
+
+const Lmock = {
+  mapbox: mockMapbox,
+  icon() {},
+  marker() {
+    return mockMarker;
+  },
+  circle() {
+    return mockCircle;
+  },
+  Control: mockControl
+};
+
+export default Lmock;
