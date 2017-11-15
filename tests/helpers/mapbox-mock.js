@@ -51,4 +51,4 @@ const mock = {
   Control: mockControl
 };
 
-export { mock };
+export default mock;

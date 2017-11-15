@@ -1,6 +1,6 @@
 import Resolver from '../../resolver';
 import config from '../../config/environment';
-import { mock }  from './mapbox-mock';
+import mockMapbox from './mapbox-mock';
 
 const resolver = Resolver.create();
 
@@ -9,6 +9,6 @@ resolver.namespace = {
   podModulePrefix: config.podModulePrefix
 };
 
-L = mock;
+L = mockMapbox;
 
 export default resolver;
