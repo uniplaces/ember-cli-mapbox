@@ -1,16 +1,19 @@
-/* global L */
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
 import { MARKER_EVENTS } from '../constants/events';
 
-const { on, computed, isEmpty, observer, isPresent } = Ember;
+const { Component, computed, isEmpty, observer, isPresent } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNameBindings: ['isLoaded'],
   layout: layout,
-  symbol: '',
-  color: '#444444',
+
   marker: null,
+
+  color: '#444444',
+  size: 'large',
+  symbol: '',
+
   draggable: false,
   hasEvents: true,
   isOpen: true,
@@ -24,7 +27,7 @@ export default Ember.Component.extend({
   },
 
   isLoaded: computed('map', 'marker', function() {
-    let {map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
+    let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
 
     if (isEmpty(map) || isEmpty(marker)) {
       return false;
@@ -47,14 +50,19 @@ export default Ember.Component.extend({
     }
   }),
 
-  setup: on('didInsertElement', function() {
-    let marker = L.marker(this.get('coordinates'), {
-      icon: this.get('createMarkerIcon')(),
-      draggable: this.get('draggable')
-    });
+  didInsertElement() {
+    this._super(...arguments);
 
-    if (isPresent(this.get('popupTitle'))) {
-      marker.bindPopup(this.get('popupTitle'));
+    let marker = L.marker(
+      this.get('coordinates'),
+      {
+        icon: this.get('createMarkerIcon')(),
+        draggable: this.get('draggable')
+      }
+    );
+
+    if (isPresent(this.get('popup-title'))) {
+      marker.bindPopup(this.get('popup-title'));
     }
 
     if (this.get('hasEvents')) {
@@ -64,17 +72,21 @@ export default Ember.Component.extend({
     }
 
     this.set('marker', marker);
-  }),
+  },
 
-  teardown: on('willDestroyElement', function() {
+  willDestroyElement() {
+    this._super(...arguments);
+
     let { map, marker } = this.getProperties('map', 'marker');
 
     if (map && marker) {
       map.removeLayer(marker);
     }
-  }),
+  },
 
-  popup: on('didRender', function() {
+  didRender() {
+    this._super(...arguments);
+
     if (!this.get('isOpen')) {
       return;
     }
@@ -86,5 +98,5 @@ export default Ember.Component.extend({
     if (this.get('recenter')) {
       this.get('map').setView(this.get('coordinates'));
     }
-  })
+  }
 });

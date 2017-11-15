@@ -1,4 +1,3 @@
-/* global L */
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import mockMap from 'dummy/tests/helpers/mock-map';

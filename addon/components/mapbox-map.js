@@ -1,4 +1,3 @@
-/* global L */
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-map';
 import { MAP_EVENTS } from '../constants/events';
