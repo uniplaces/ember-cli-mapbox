@@ -22,6 +22,8 @@ export default Ember.Component.extend({
   attributionControl: false,
 
   didInsertElement() {
+    this._super(...arguments);
+
     Ember.run.scheduleOnce('afterRender', this, function() {
       let map = L.mapbox.map(
         this.get('divId'),

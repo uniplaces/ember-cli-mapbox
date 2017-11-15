@@ -53,26 +53,28 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    let { color, size, symbol } = this.getProperties('color', 'size', 'symbol');
-    let marker = L.marker(
-      this.get('coordinates'),
-      {
-        icon: this.get('createMarkerIcon')(color, size, symbol),
-        draggable: this.get('draggable')
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      let { color, size, symbol } = this.getProperties('color', 'size', 'symbol');
+      let marker = L.marker(
+        this.get('coordinates'),
+        {
+          icon: this.get('createMarkerIcon')(color, size, symbol),
+          draggable: this.get('draggable')
+        }
+      );
+
+      if (isPresent(this.get('popup-title'))) {
+        marker.bindPopup(this.get('popup-title'));
       }
-    );
 
-    if (isPresent(this.get('popup-title'))) {
-      marker.bindPopup(this.get('popup-title'));
-    }
+      if (this.get('hasEvents')) {
+        MARKER_EVENTS.forEach((event) => {
+          marker.on(event, (e) => this.sendAction('on' + event, marker, e));
+        });
+      }
 
-    if (this.get('hasEvents')) {
-      MARKER_EVENTS.forEach((event) => {
-        marker.on(event, (e) => this.sendAction('on' + event, marker, e));
-      });
-    }
-
-    this.set('marker', marker);
+      this.set('marker', marker);
+    });
   },
 
   willDestroyElement() {
