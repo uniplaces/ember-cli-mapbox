@@ -14,11 +14,11 @@ export default Component.extend({
     let options = {};
 
     if (className) {
-      options = { ...options, className };
+      options = Object.assign({}, options, className);
     }
 
     if (color) {
-      options = {...options, color};
+      options = Object.assign({}, options, color);
     }
 
     return options;

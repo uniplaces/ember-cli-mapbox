@@ -28,13 +28,15 @@ export default Ember.Component.extend({
       let map = L.mapbox.map(
         this.get('divId'),
         this.get('mapId'),
-        {
-          ...this.getProperties('center', 'zoom', 'dragging', 'scrollWheelZoom', 'doubleClickZoom', 'tap'),
-          zoomControl: false,
-          addControls: this.get('addControls'),
-          attributionControl: this.get('attributionControl'),
-          ...this.get('options')
-        }
+        Object.assign({},
+          this.getProperties('center', 'zoom', 'dragging', 'scrollWheelZoom', 'doubleClickZoom', 'tap'),
+          {
+            zoomControl: false,
+            addControls: this.get('addControls'),
+            attributionControl: this.get('attributionControl')
+          },
+          this.get('options')
+        )
       );
 
       L.mapbox.styleLayer(this.get('style')).addTo(map);
