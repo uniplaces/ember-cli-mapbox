@@ -52,4 +52,12 @@ export default Ember.Component.extend({
       this.set('map', map);
     });
   },
+
+  zoomOrCenterChanged: Ember.observer('zoom', 'center', function() {
+    this.get('map')
+      .setView(
+        L.latLng(...this.get('center')),
+        this.get('zoom')
+      )
+  })
 });
