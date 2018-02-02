@@ -59,7 +59,8 @@ export default Component.extend({
         this.get('coordinates'),
         {
           icon: this.get('createMarkerIcon')(color, size, symbol),
-          draggable: this.get('draggable')
+          draggable: this.get('draggable'),
+          ...this.get('options')
         }
       );
 
@@ -80,9 +81,11 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
 
-    let { map, marker } = this.getProperties('map', 'marker');
+    let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
 
-    if (map && marker) {
+    if (!isEmpty(cluster)) {
+      cluster.removeLayer(marker);
+    } else if(map && marker) {
       map.removeLayer(marker);
     }
   },
