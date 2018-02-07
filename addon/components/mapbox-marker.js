@@ -17,6 +17,7 @@ export default Component.extend({
   draggable: false,
   hasEvents: true,
   isOpen: true,
+  options: {},
 
   createMarkerIcon(color, size, symbol) {
     return L.mapbox.marker.icon({
@@ -59,7 +60,8 @@ export default Component.extend({
         this.get('coordinates'),
         {
           icon: this.get('createMarkerIcon')(color, size, symbol),
-          draggable: this.get('draggable')
+          draggable: this.get('draggable'),
+          ...this.get('options')
         }
       );
 
@@ -80,9 +82,13 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
 
-    let { map, marker } = this.getProperties('map', 'marker');
+    let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
 
-    if (map && marker) {
+    if (isPresent(cluster)) {
+      cluster.removeLayer(marker);
+    } 
+    
+    if(map && marker) {
       map.removeLayer(marker);
     }
   },

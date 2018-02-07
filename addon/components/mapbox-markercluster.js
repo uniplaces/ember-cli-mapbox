@@ -15,6 +15,8 @@ export default Ember.Component.extend({
   spiderLegPolylineOptions: { weight: 1.5, color: '#222', opacity: 0.5 },
   spiderfyDistanceMultiplier: 1,
   maxClusterRadius: 80,
+  chunkedLoading: false,
+  chunkProgress: () => {},
 
   isLoaded: Ember.computed('map', 'cluster', function() {
     let map = this.get('map');
@@ -41,7 +43,9 @@ export default Ember.Component.extend({
       polygonOptions:             this.get('polygonOptions'),
       singleMarkerMode:           this.get('singleMarkerMode'),
       spiderfyDistanceMultiplier: this.get('spiderfyDistanceMultiplier'),
-      iconCreateFunction:         this.get('iconCreateFunction')
+      iconCreateFunction:         this.get('iconCreateFunction'),
+      chunkedLoading:             this.get('chunkedLoading'),
+      chunkProgress:              this.get('chunkProgress')
     });
     this.set('cluster', cluster);
   }),

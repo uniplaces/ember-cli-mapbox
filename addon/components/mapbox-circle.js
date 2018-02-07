@@ -12,7 +12,7 @@ export default Component.extend({
   radius: 200,
   options: {},
 
-  isLoaded: observer('map', function() {
+  isLoaded: observer('map', 'circle', function() {
     let { map, circle, cluster } = this.getProperties('map', 'circle', 'cluster');
 
     if (isEmpty(map) || isEmpty(circle)) {

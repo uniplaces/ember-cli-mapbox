@@ -9,6 +9,7 @@ export default Ember.Component.extend({
 
   // Map Options
   center: null,
+  boundingBox: null,
   zoom: null,
   style: 'mapbox://styles/mapbox/basic-v9',
   dragging: true,
@@ -36,6 +37,10 @@ export default Ember.Component.extend({
           ...this.get('options')
         }
       );
+
+      if (this.get('boundingBox')) {
+        map.fitBounds(this.get('boundingBox'));
+      }
 
       L.mapbox.styleLayer(this.get('style')).addTo(map);
 
