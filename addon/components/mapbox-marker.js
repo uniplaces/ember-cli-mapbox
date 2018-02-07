@@ -84,7 +84,7 @@ export default Component.extend({
 
     let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
 
-    if (!isPresent(cluster)) {
+    if (isPresent(cluster)) {
       cluster.removeLayer(marker);
     } 
     
