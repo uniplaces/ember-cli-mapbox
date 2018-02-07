@@ -16,8 +16,11 @@ export default Ember.Component.extend({
       return;
     }
 
+    if (this.get('map')) {
+      this.get('map').addLayer(this.get('layer'));
+    }
+
     this.set('id', id);
-    this.get('map').addLayer(this.get('layer'));
   },
 
   willDestroyElement() {
