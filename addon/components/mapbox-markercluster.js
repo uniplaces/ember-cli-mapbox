@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   spiderLegPolylineOptions: { weight: 1.5, color: '#222', opacity: 0.5 },
   spiderfyDistanceMultiplier: 1,
   maxClusterRadius: 80,
-  hasEvents: true,
+  hasEvents: false,
   chunkedLoading: false,
   chunkProgress: () => {},
 
