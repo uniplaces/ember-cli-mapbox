@@ -19,6 +19,7 @@ export default Ember.Component.extend({
   position: 'topleft',
   showZoomControl: true,
   options: {},
+  boundingBoxOptions: {},
   addControls: true,
   attributionControl: false,
 
@@ -39,7 +40,7 @@ export default Ember.Component.extend({
       );
 
       if (this.get('boundingBox')) {
-        map.fitBounds(this.get('boundingBox'));
+        map.fitBounds(this.get('boundingBox'), this.get('boundingBoxOptions'));
       }
 
       L.mapbox.styleLayer(this.get('style')).addTo(map);
