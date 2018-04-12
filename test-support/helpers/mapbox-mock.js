@@ -10,16 +10,21 @@ const mockMapbox = {
   }
 };
 
-const mockMap = {
+export const mockMarkerCluster = {
+  on() {},
+  removeLayer() {}
+}
+
+export const mockMap = {
   on() {},
   removeLayer() {}
 };
 
-const mockStyleLayer = {
+export const mockStyleLayer = {
   addTo() {}
 };
 
-const mockMarker = {
+export const mockMarker = {
   addTo() {},
   setIcon() {},
   bindPopup() {},
@@ -30,6 +35,13 @@ const mockMarker = {
 const mockCircle = {
   addTo() {}
 };
+
+export const mockGeoJson = {
+  openPopup() {},
+  getBounds() {},
+  on() {},
+  addTo() {}
+}
 
 const mockControl = {
   Zoom() {
@@ -48,7 +60,13 @@ const Lmock = {
   circle() {
     return mockCircle;
   },
-  Control: mockControl
+  Control: mockControl,
+  geoJson() {
+    return mockGeoJson;
+  },
+  MarkerClusterGroup() {
+    return mockMarkerCluster;
+  }
 };
 
 export default Lmock;
