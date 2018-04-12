@@ -89,6 +89,17 @@ You can cluster markers into a markercluster group by yielding a mapbox-markercl
 
 Nested mapbox-markers carry all of the same properties/attributes as regular markers.
 
+#### Exclude leaflet markerclusters
+
+You can choose not to use clusters (and exclude them from build) setting the variable `excludeCluster`
+to false in your app's `config/environment`;
+```
+mapbox = {
+  accessToken: 'yourAccessToken',
+  excludeCluster: false
+};
+```
+
 ### mapbox-geojson
 
 Similar to `mapbox-marker`, you can use `mapbox-geojson` to add arbitrary polygons and points to your map:

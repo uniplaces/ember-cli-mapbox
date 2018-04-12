@@ -24,11 +24,13 @@ module.exports = {
     app.import(app.bowerDirectory + '/mapbox.js/mapbox.css');
 
     // Leaflet markercluster
-    if (addonConfig.includeCluster) {
-      app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/leaflet.markercluster.js');
-      app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.css');
-      app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.Default.css');
+    if (addonConfig.excludeCluster) {
+      return;
     }
+
+    app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/leaflet.markercluster.js');
+    app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.css');
+    app.import(app.bowerDirectory + '/leaflet.markerclusterer/dist/MarkerCluster.Default.css');
   },
 
   treeForPublic: function() {
