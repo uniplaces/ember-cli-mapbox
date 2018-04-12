@@ -26,13 +26,10 @@ test('It sets the marker color size and symbol', function(assert) {
 });
 
 test('It registers an event for onclick', function(assert) {
-  let done = assert.async();
   assert.expect(1);
 
   this.set('clickHandler', function() {
     assert.ok(true);
-
-    done();
   });
 
   mockMarker.on = function(e, method) {
@@ -45,13 +42,10 @@ test('It registers an event for onclick', function(assert) {
 });
 
 test('it registers an event for onpopupopen', function(assert) {
-  let done = assert.async();
   assert.expect(1);
 
   this.set('popupOpen', function() {
     assert.ok(true);
-
-    done();
   });
 
   mockMarker.on = function(e, method) {
@@ -64,12 +58,10 @@ test('it registers an event for onpopupopen', function(assert) {
 });
 
 test('it registers an event for onremove', function(assert) {
-  let done = assert.async();
   assert.expect(1);
 
   this.on('explode', function() {
     assert.ok(true);
-    done();
   });
 
   mockMarker.on = function(e, method) {

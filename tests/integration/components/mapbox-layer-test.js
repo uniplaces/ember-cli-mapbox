@@ -3,7 +3,12 @@ import hbs from 'htmlbars-inline-precompile';
 import { mockMap } from 'dummy/tests/helpers/mapbox-mock';
 
 moduleForComponent('mapbox-layer', 'Integration | Component | mapbox layer', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    L.mapbox.map = function() {
+      return mockMap;
+    };
+  }
 });
 
 test('it adds layer to map', function(assert) {

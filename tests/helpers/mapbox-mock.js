@@ -31,6 +31,13 @@ const mockCircle = {
   addTo() {}
 };
 
+export const mockGeoJson = {
+  openPopup() {},
+  getBounds() {},
+  on() {},
+  addTo() {}
+}
+
 const mockControl = {
   Zoom() {
     return {
@@ -48,7 +55,10 @@ const Lmock = {
   circle() {
     return mockCircle;
   },
-  Control: mockControl
+  Control: mockControl,
+  geoJson() {
+    return mockGeoJson;
+  }
 };
 
 export default Lmock;
