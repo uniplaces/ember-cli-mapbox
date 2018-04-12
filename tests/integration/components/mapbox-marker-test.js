@@ -8,6 +8,8 @@ moduleForComponent('mapbox-marker', 'Integration | Component | mapbox marker', {
     L.marker = function() {
       return mockMarker;
     };
+
+    L.mapbox.marker.icon = () => {}
   }
 });
 
