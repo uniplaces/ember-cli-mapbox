@@ -5,13 +5,8 @@ import { mockMap, mockGeoJson } from 'dummy/tests/helpers/mapbox-mock';
 moduleForComponent('mapbox-geojson', 'Integration | Component | mapbox geojson', {
   integration: true,
   beforeEach() {
-    L.mapbox.map = function() {
-      return mockMap;
-    };
-
-    L.geoJson = function() {
-      return mockGeoJson;
-    };
+    L.mapbox.map = () => mockMap;
+    L.geoJson = () => mockGeoJson;
   }
 });
 

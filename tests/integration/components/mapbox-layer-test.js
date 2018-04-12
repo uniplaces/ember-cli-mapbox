@@ -5,9 +5,7 @@ import { mockMap } from 'dummy/tests/helpers/mapbox-mock';
 moduleForComponent('mapbox-layer', 'Integration | Component | mapbox layer', {
   integration: true,
   beforeEach() {
-    L.mapbox.map = function() {
-      return mockMap;
-    };
+    L.mapbox.map = () => mockMap
   }
 });
 

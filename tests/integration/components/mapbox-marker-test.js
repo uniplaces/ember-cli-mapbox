@@ -5,10 +5,7 @@ import { mockMarker } from 'dummy/tests/helpers/mapbox-mock';
 moduleForComponent('mapbox-marker', 'Integration | Component | mapbox marker', {
   integration: true,
   beforeEach() {
-    L.marker = function() {
-      return mockMarker;
-    };
-
+    L.marker = () => mockMarker;
     L.mapbox.marker.icon = () => {}
   }
 });

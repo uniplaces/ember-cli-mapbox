@@ -5,13 +5,8 @@ import { mockMap, mockStyleLayer } from 'dummy/tests/helpers/mapbox-mock';
 moduleForComponent('mapbox-map', 'Integration | Component | mapbox map', {
   integration: true,
   beforeEach() {
-    L.mapbox.map = function() {
-      return mockMap;
-    };
-
-    L.mapbox.styleLayer = function() {
-      return mockStyleLayer;
-    }
+    L.mapbox.map = () => mockMap
+    L.mapbox.styleLayer = () =>mockStyleLayer;
   }
 });
 

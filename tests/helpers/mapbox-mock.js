@@ -10,6 +10,11 @@ const mockMapbox = {
   }
 };
 
+export const mockMarkerCluster = {
+  on() {},
+  removeLayer() {}
+}
+
 export const mockMap = {
   on() {},
   removeLayer() {}
@@ -58,6 +63,9 @@ const Lmock = {
   Control: mockControl,
   geoJson() {
     return mockGeoJson;
+  },
+  MarkerClusterGroup() {
+    return mockMarkerCluster;
   }
 };
 

@@ -5,9 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 moduleForComponent('mapbox-circle', 'Integration | Component | mapbox circle', {
   integration: true,
   beforeEach() {
-    L.circle = function() {
-      return mockCircle;
-    }
+    L.circle = () => mockCircle
   }
 });
 
