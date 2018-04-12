@@ -2,7 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
 import { MARKER_EVENTS } from '../constants/events';
 
-const { Component, computed, isEmpty, observer, isPresent } = Ember;
+const { Component, computed, isEmpty, observer, isPresent, run } = Ember;
 
 export default Component.extend({
   classNameBindings: ['isLoaded'],
@@ -54,7 +54,7 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    Ember.run.scheduleOnce('afterRender', this, function() {
+    run.scheduleOnce('afterRender', this, function() {
       let { color, size, symbol } = this.getProperties('color', 'size', 'symbol');
       let marker = L.marker(
         this.get('coordinates'),

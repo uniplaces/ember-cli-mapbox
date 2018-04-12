@@ -2,7 +2,9 @@ import Ember from 'ember';
 import layout from '../templates/components/mapbox-map';
 import { MAP_EVENTS } from '../constants/events';
 
-export default Ember.Component.extend({
+const { Component, run, deprecate } = Ember;
+
+export default Component.extend({
   layout: layout,
   divId: 'map',
   mapId: null,
@@ -26,7 +28,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    Ember.run.scheduleOnce('afterRender', this, function() {
+    run.scheduleOnce('afterRender', this, function() {
       let map = L.mapbox.map(
         this.get('divId'),
         this.get('mapId'),
@@ -56,7 +58,7 @@ export default Ember.Component.extend({
       });
 
       if (this.get('click')) {
-        Ember.deprecate('The "click" action in mapbox-map is deprecated, please use "onclick" instead.', false, {
+        deprecate('The "click" action in mapbox-map is deprecated, please use "onclick" instead.', false, {
           id: 'mapbox-map-click-action',
           url: 'https://github.com/binhums/ember-cli-mapbox',
           until: '1 April 2016'
