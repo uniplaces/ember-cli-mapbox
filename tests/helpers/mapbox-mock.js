@@ -10,16 +10,16 @@ const mockMapbox = {
   }
 };
 
-const mockMap = {
+export const mockMap = {
   on() {},
   removeLayer() {}
 };
 
-const mockStyleLayer = {
+export const mockStyleLayer = {
   addTo() {}
 };
 
-const mockMarker = {
+export const mockMarker = {
   addTo() {},
   setIcon() {},
   bindPopup() {},
