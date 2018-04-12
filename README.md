@@ -95,7 +95,6 @@ You can choose not to use clusters (and exclude them from build) setting the var
 to false in your app's `config/environment`;
 ```
 mapbox = {
-  accessToken: 'yourAccessToken',
   excludeCluster: false
 };
 ```
