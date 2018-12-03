@@ -1,24 +1,22 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-
-import mockMap from 'dummy/tests/helpers/mock-map';
+import { mockMap, mockStyleLayer } from 'dummy/tests/helpers/mapbox-mock';
 
 moduleForComponent('mapbox-map', 'Integration | Component | mapbox map', {
   integration: true,
-
   beforeEach() {
-    L.mapbox.map = function() {
-      return mockMap;
-    };
+    L.mapbox.map = () => mockMap
+    L.mapbox.styleLayer = () =>mockStyleLayer;
   }
 });
 
 test('it sets up a mapbox map with the supplied ids', function(assert) {
   assert.expect(2);
-
+  
   L.mapbox.map = function(divId, mapId) {
     assert.equal(divId, 'frap');
     assert.equal(mapId, 'brap');
+
     return mockMap;
   };
 
@@ -31,45 +29,68 @@ test('it defaults the divId to map', function(assert) {
   L.mapbox.map = function(divId, mapId) {
     assert.equal(divId, 'map');
     assert.equal(mapId, 'brap');
+
     return mockMap;
   };
 
   this.render(hbs`{{mapbox-map mapId='brap'}}`);
 });
 
-test('it calls setView if a center is defined', function(assert) {
+test('it creates the mapbox instance with center as an option', function(assert) {
   assert.expect(1);
 
-  mockMap.setView = function(center) {
-    assert.equal(center, 'baba');
-  };
+  L.mapbox.map = (_divId, _mapId, { center }) => {
+    assert.equal(center, 'center');
 
-  L.mapbox.map = function() {
     return mockMap;
   };
 
-  this.render(hbs`{{mapbox-map center='baba'}}`);
+  this.render(hbs`{{mapbox-map center='center'}}`);
+});
+
+test('it calls fitBounds if a boundingBox is defined', function(assert) {
+  assert.expect(2);
+
+  mockMap.fitBounds = function(bounds, options) {
+    assert.equal(bounds, 'bounds');
+    assert.equal(options, 'options');
+  };
+
+  this.render(hbs`{{mapbox-map boundingBox='bounds' boundingBoxOptions='options'}}`);
 });
 
 test('it calls setView with zoom if it is defined', function(assert) {
-  assert.expect(2);
+  assert.expect(1);
 
-  mockMap.setView = function(center, zoom) {
-    assert.equal(center, 'baba');
-    assert.equal(zoom, 'gaga');
-  };
+  L.mapbox.map = (_divId, _mapId, { zoom }) => {
+    assert.equal(zoom, 'zoom');
 
-  L.mapbox.map = function() {
     return mockMap;
   };
 
-  this.render(hbs`{{mapbox-map center='baba' zoom='gaga'}}`);
+  this.render(hbs`{{mapbox-map zoom='zoom'}}`);
+});
+
+test('it tries to add style to map', function(assert) {
+  assert.expect(2);
+
+  L.mapbox.styleLayer = (style) => {
+    assert.equal(style, 'style')
+
+    return {
+      addTo: (map) => {
+        assert.ok(map);
+      }
+    }
+  }
+
+  this.render(hbs`{{mapbox-map style='style'}}`);
 });
 
 test('it registers an event for click (deprecated)', function(assert) {
   assert.expect(1);
 
-  this.on('explode', function() {
+  this.set('click', function() {
     assert.ok(true);
   });
 
@@ -79,17 +100,13 @@ test('it registers an event for click (deprecated)', function(assert) {
     }
   };
 
-  L.mapbox.map = function() {
-    return mockMap;
-  };
-
-  this.render(hbs`{{mapbox-map click='explode'}}`);
+  this.render(hbs`{{mapbox-map click=click}}`);
 });
 
 test('it registers an event for onclick', function(assert) {
   assert.expect(1);
 
-  this.on('explode', function() {
+  this.set('onclick', function() {
     assert.ok(true);
   });
 
@@ -99,17 +116,13 @@ test('it registers an event for onclick', function(assert) {
     }
   };
 
-  L.mapbox.map = function() {
-    return mockMap;
-  };
-
-  this.render(hbs`{{mapbox-map onclick='explode'}}`);
+  this.render(hbs`{{mapbox-map onclick=onclick}}`);
 });
 
 test('it registers an event for onlocationerror', function(assert) {
   assert.expect(1);
 
-  this.on('explode', function() {
+  this.set('explode', function() {
     assert.ok(true);
   });
 
@@ -119,9 +132,5 @@ test('it registers an event for onlocationerror', function(assert) {
     }
   };
 
-  L.mapbox.map = function() {
-    return mockMap;
-  };
-
-  this.render(hbs`{{mapbox-map onlocationerror='explode'}}`);
+  this.render(hbs`{{mapbox-map onlocationerror=explode}}`);
 });

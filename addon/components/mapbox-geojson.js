@@ -1,24 +1,80 @@
 import Ember from 'ember';
 import layout from '../templates/components/mapbox-geojson';
 
-export default Ember.Component.extend({
+const { Component, computed, isEmpty } = Ember;
+
+export default Component.extend({
   classNameBindings: ['isLoaded'],
   layout: layout,
-  geojson: null,
+  geoJson: null,
 
-  isLoaded: Ember.computed('map', 'geojson', function() {
-    let map = this.get('map');
-    let geojson = this.get('geojson');
-    if (!Ember.isEmpty(map) && !Ember.isEmpty(geojson)) {
-      geojson.addTo(map);
-      return true;
+  json: {},
+  fitBounds: false,
+  customStyle({ className, color }) {
+    let options = {};
+
+    if (className) {
+      options = { ...options, className };
     }
-    return false;
+
+    if (color) {
+      options = {...options, color};
+    }
+
+    return options;
+  },
+
+  isLoaded: computed('map', 'json', function() {
+    let { map, geoJson } = this.getProperties('map', 'geoJson');
+
+    if (isEmpty(map)) {
+      return false;
+    }
+
+    if (!isEmpty(geoJson)) {
+      this._removeLayer(map, geoJson);
+    }
+
+    this.set('geoJson', this._createGeoJson());
+    this._addLayer(map, this.get('geoJson'));
+
+    return true;
   }),
 
-  setup: Ember.on('init', function() {
+  init() {
+    this._super(...arguments);
+  },
+
+  willDestroyElement() {
+    let { map, geoJson } = this.getProperties('map', 'geoJson');
+
+    if (!isEmpty(map) && !isEmpty(geoJson)) {
+      this._removeLayer(map, geoJson);
+    }
+  },
+
+  didRender() {
+    if (this.get('is-open')) {
+      this.get('geoJson').openPopup();
+    }
+  },
+
+  _removeLayer(map, geoJson) {
+    map.removeLayer(geoJson);
+  },
+
+  _addLayer(map, geoJson) {
+    geoJson.addTo(map);
+
+    if (this.get('fitBounds')) {
+      map.fitBounds(geoJson.getBounds());
+    }
+  },
+
+  _createGeoJson() {
     let popupTitle = this.get('popup-title');
-    let geojson = L.geoJson(this.get('json'), {
+    let geoJson = L.geoJson(this.get('json'), {
+      style: this.get('customStyle'),
       onEachFeature(feature, layer) {
         if (popupTitle) {
           layer.bindPopup(popupTitle);
@@ -26,24 +82,10 @@ export default Ember.Component.extend({
       }
     });
 
-    geojson.on('click', () => {
+    geoJson.on('click', () => {
       this.sendAction('onclick');
     });
 
-    this.set('geojson', geojson);
-  }),
-
-  teardown: Ember.on('willDestroyElement', function() {
-    let geojson = this.get('geojson');
-    let map = this.get('map');
-    if (map && geojson) {
-      map.removeLayer(geojson);
-    }
-  }),
-
-  popup: Ember.on('didRender', function() {
-    if (this.get('is-open')) {
-      this.get('geojson').openPopup();
-    }
-  })
+    return geoJson;
+  }
 });

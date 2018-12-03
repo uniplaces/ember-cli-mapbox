@@ -34,12 +34,21 @@ export const MAP_EVENTS = [
   'popupclose'
 ];
 
+export const CLUSTER_EVENTS = [
+  'clusterclick',
+  'clustermouseover',
+  'clustermouseout'
+];
+
 export const MARKER_EVENTS = [
   'click',
   'dblclick',
   'mousedown',
   'mouseover',
   'mouseout',
+  'clusterclick',
+  'clustermouseover',
+  'clustermouseout',
   'contextmenu',
   'dragstart',
   'drag',

@@ -1,15 +1,18 @@
-# Ember CLI mapbox [![Circle CI](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master.svg?style=svg)](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master)
+# ember-cli-mapbox
 
-Template driven Mapbox.js maps in Ember CLI.
+[![npm version](https://badge.fury.io/js/ember-cli-mapbox.svg)](https://badge.fury.io/js/ember-cli-mapbox)
+[![Build Status](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master.svg?style=svg)](https://circleci.com/gh/binhums/ember-cli-mapbox/tree/master)
+
+Ember addon to include template driven Mapbox.js components in your Ember project.
 
 ## Installation
 
-```
+#### Step 1: Install ember-cli-mapbox
+```bash
 ember install ember-cli-mapbox
 ```
 
-Add your access token to `config/environment.js`:
-
+#### Step 2: Add your access token to `config/environment.js`:
 ```js
 mapbox: {
   accessToken: 'yourAccessToken',
@@ -32,7 +35,7 @@ corresponding mapId form mapbox.
 If `divId` is not specified it defaults to 'map'.
 
 You can specify the zoom level, center of the map, and trigger an `onclick` event as attributes.
-The `onclick` event will return an instance of the event containing the lat,lng, among other properties.
+The `onclick` event will return an instance of the event containing the lat, lng, among other properties.
 
 ```hbs
 {{mapbox-map
@@ -85,6 +88,16 @@ You can cluster markers into a markercluster group by yielding a mapbox-markercl
 ```
 
 Nested mapbox-markers carry all of the same properties/attributes as regular markers.
+
+#### Exclude leaflet markerclusters
+
+You can choose not to use clusters (and exclude them from build) setting the variable `excludeCluster`
+to false in your app's `config/environment`;
+```
+mapbox = {
+  excludeCluster: false
+};
+```
 
 ### mapbox-geojson
 
@@ -141,7 +154,7 @@ The dummy app has some basic mapbox usage.
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
@@ -149,4 +162,4 @@ The dummy app has some basic mapbox usage.
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+For more information on using ember-cli, visit [https://ember-cli.com/](https://www.ember-cli.com/).

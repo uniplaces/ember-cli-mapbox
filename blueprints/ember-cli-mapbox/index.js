@@ -1,9 +1,9 @@
 module.exports = {
-  normalizeEntityName: function() {}, // no-op since we're just adding dependencies
+  normalizeEntityName: function() {},
 
   afterInstall: function() {
     return this.addBowerPackagesToProject([
-      { name: 'mapbox.js', target: '2.3.0' },
+      { name: 'mapbox.js', target: '3.1.1' },
       { name: 'leaflet.markerclusterer', target: '0.4.0' }
     ]);
   },

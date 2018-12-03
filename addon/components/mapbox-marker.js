@@ -2,75 +2,110 @@ import Ember from 'ember';
 import layout from '../templates/components/mapbox-marker';
 import { MARKER_EVENTS } from '../constants/events';
 
-export default Ember.Component.extend({
+const { Component, computed, isEmpty, observer, isPresent, run } = Ember;
+
+export default Component.extend({
   classNameBindings: ['isLoaded'],
   layout: layout,
-  symbol: '',
-  color: '#444444',
+
   marker: null,
+
+  color: '#444444',
+  size: 'large',
+  symbol: '',
+
   draggable: false,
+  hasEvents: true,
+  isOpen: true,
+  options: {},
 
-  isLoaded: Ember.computed('map', 'marker', function() {
-    let map = this.get('map');
-    let marker = this.get('marker');
-    let cluster = this.get('cluster');
+  createMarkerIcon(color, size, symbol) {
+    return L.mapbox.marker.icon({
+      'marker-color': color,
+      'marker-size': size,
+      'marker-symbol': symbol
+    });
+  },
 
-    if (!Ember.isEmpty(map) && !Ember.isEmpty(marker)) {
-      if (!Ember.isEmpty(cluster)) {
-        cluster.addLayer(marker);
-      } else {
-        marker.addTo(map);
-      }
-      return true;
-    } else {
+  isLoaded: computed('map', 'marker', function() {
+    let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
+
+    if (isEmpty(map) || isEmpty(marker)) {
       return false;
     }
+
+    if (!isEmpty(cluster)) {
+      cluster.addLayer(marker);
+    } else {
+      marker.addTo(map);
+    }
+
+    return true;
   }),
 
-  iconChange: Ember.observer('color', 'size', 'symbol', function() {
-    let map = this.get('map');
-    let marker = this.get('marker');
+  iconChange: observer('color', 'size', 'symbol', function() {
+    let { map, marker, color, size, symbol } = this.getProperties('map', 'marker', 'color', 'size', 'symbol');
+
     if (typeof map !== 'undefined' && marker != null) {
-      marker.setIcon(L.mapbox.marker.icon({
-        'marker-color': this.get('color'),
-        'marker-size': this.get('size'),
-        'marker-symbol': this.get('symbol')
-      }));
+      marker.setIcon(this.get('createMarkerIcon')(color, size, symbol));
     }
   }),
 
-  setup: Ember.on('init', function() {
-    let marker = L.marker(this.get('coordinates'), {
-      icon: L.mapbox.marker.icon({
-        'marker-color': this.get('color'),
-        'marker-size': this.get('size'),
-        'marker-symbol': this.get('symbol')
-      }),
-      draggable: this.get('draggable')
+  didInsertElement() {
+    this._super(...arguments);
+
+    run.scheduleOnce('afterRender', this, function() {
+      let { color, size, symbol } = this.getProperties('color', 'size', 'symbol');
+      let marker = L.marker(
+        this.get('coordinates'),
+        {
+          icon: this.get('createMarkerIcon')(color, size, symbol),
+          draggable: this.get('draggable'),
+          ...this.get('options')
+        }
+      );
+
+      if (isPresent(this.get('popup-title'))) {
+        marker.bindPopup(this.get('popup-title'));
+      }
+
+      if (this.get('hasEvents')) {
+        MARKER_EVENTS.forEach((event) => {
+          marker.on(event, (e) => this.sendAction('on' + event, marker, e));
+        });
+      }
+
+      this.set('marker', marker);
     });
-    marker.bindPopup(this.get('popup-title'));
+  },
 
-    MARKER_EVENTS.forEach((event) => {
-      marker.on(event, (e) => this.sendAction('on' + event, marker, e));
-    });
+  willDestroyElement() {
+    this._super(...arguments);
 
-    this.set('marker', marker);
-  }),
+    let { map, marker, cluster } = this.getProperties('map', 'marker', 'cluster');
 
-  teardown: Ember.on('willDestroyElement', function() {
-    let marker = this.get('marker');
-    let map = this.get('map');
-    if (map && marker) {
+    if (isPresent(cluster)) {
+      cluster.removeLayer(marker);
+    } 
+    
+    if(map && marker) {
       map.removeLayer(marker);
     }
-  }),
+  },
 
-  popup: Ember.on('didRender', function() {
-    if (this.get('is-open')) {
-      this.get('marker').openPopup();
-      if (this.get('recenter')) {
-        this.get('map').setView(this.get('coordinates'));
-      }
+  didRender() {
+    this._super(...arguments);
+
+    if (!this.get('isOpen')) {
+      return;
     }
-  })
+
+    if (isPresent(this.get('popupTitle'))) {
+      this.get('marker').openPopup();
+    }
+
+    if (this.get('recenter')) {
+      this.get('map').setView(this.get('coordinates'));
+    }
+  }
 });
